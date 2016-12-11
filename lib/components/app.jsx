@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import WeatherSection from './WeatherSection';
 const $ = require ('jquery');
 
 export default class App extends React.Component {
@@ -20,7 +21,7 @@ export default class App extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     $.get('http://weatherly-api.herokuapp.com/api/weather/' + this.state.location, (data) => {
-      console.log(data);
+
       this.setState(
         { weather: data,
           location: this.state.location },
@@ -29,12 +30,11 @@ export default class App extends React.Component {
           }
         );
     });
-    debugger;
   }
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form className="input-form" onSubmit={this.handleSubmit}>
         <label>
           Location:
           <input type="text" value={this.state.location} onChange={this.handleChange} />
@@ -46,9 +46,8 @@ export default class App extends React.Component {
           }}
           >
         </button>
-        {/* <WeatherCards weather={ this.state.weather }/> */}
+        <WeatherSection weather={ this.state.weather } />
       </form>
-
     );
   }
 }
